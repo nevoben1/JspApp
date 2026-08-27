@@ -1,0 +1,27 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H/5 * * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set +x
+powershell.exe -Command &apos;$s=[Diagnostics.Stopwatch]::StartNew(); try { $r=Invoke-WebRequest &quot;http://localhost:8080/JspApp/index.jsp&quot; -UseBasicParsing -TimeoutSec 5; $s.Stop(); $t=$s.ElapsedMilliseconds; if ($t -lt 1000) { Write-Host &quot;Status: $($r.StatusCode) $($r.StatusDescription) | Time: ${t}ms | State: UP (Optimal)&quot; -ForegroundColor Green; exit 0 } else { Write-Host &quot;Status: $($r.StatusCode) $($r.StatusDescription) | Time: ${t}ms | State: UP (SLOW)&quot; -ForegroundColor Yellow; exit 0 } } catch { Write-Host &quot;Status: FAILED / DOWN | Error: $($_.Exception.Message)&quot; -ForegroundColor Red; exit 1 }&apos;</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

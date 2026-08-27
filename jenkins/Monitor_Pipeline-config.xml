@@ -1,0 +1,92 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1571.1580.v18e46842c125">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2291.v2934911987b_6"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2291.v2934911987b_6">
+      <jobProperties/>
+      <triggers>
+        <string>hudson.triggers.TimerTrigger</string>
+      </triggers>
+      <parameters>
+        <string>SLOW_THRESHOLD_MS</string>
+        <string>TIMEOUT_SEC</string>
+        <string>TARGET_URL</string>
+      </parameters>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <hudson.triggers.TimerTrigger>
+          <spec>H/5 * * * *</spec>
+        </hudson.triggers.TimerTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>TARGET_URL</name>
+          <description>The target application URL to monitor</description>
+          <defaultValue>http://localhost:8080/JspApp/index.jsp</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TIMEOUT_SEC</name>
+          <description>Request timeout in seconds</description>
+          <defaultValue>5</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SLOW_THRESHOLD_MS</name>
+          <description>Threshold in milliseconds to consider response as SLOW</description>
+          <defaultValue>1000</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@4350.vcc65d4958821">
+    <script>pipeline {
+    agent any
+
+    parameters {
+        string(
+            name: &apos;TARGET_URL&apos;,
+            defaultValue: &apos;http://localhost:8080/JspApp/index.jsp&apos;,
+            description: &apos;The target application URL to monitor&apos;
+        )
+        string(
+            name: &apos;TIMEOUT_SEC&apos;,
+            defaultValue: &apos;5&apos;,
+            description: &apos;Request timeout in seconds&apos;
+        )
+        string(
+            name: &apos;SLOW_THRESHOLD_MS&apos;,
+            defaultValue: &apos;1000&apos;,
+            description: &apos;Threshold in milliseconds to consider response as SLOW&apos;
+        )
+    }
+
+    triggers {
+        cron(&apos;H/5 * * * *&apos;)
+    }
+
+    stages {
+        stage(&apos;Health Check&apos;) {
+            steps {
+                sh &quot;&quot;&quot;
+                set +x
+                powershell.exe -Command &apos;\$url = &quot;${params.TARGET_URL}&quot;; \$timeout = ${params.TIMEOUT_SEC}; \$threshold = ${params.SLOW_THRESHOLD_MS}; \$s=[Diagnostics.Stopwatch]::StartNew(); try { \$r=Invoke-WebRequest \$url -UseBasicParsing -TimeoutSec \$timeout; \$s.Stop(); \$t=\$s.ElapsedMilliseconds; if (\$t -lt \$threshold) { Write-Host &quot;Status: \$(\$r.StatusCode) \$(\$r.StatusDescription) | Time: \${t}ms | State: UP (Optimal)&quot; -ForegroundColor Green; exit 0 } else { Write-Host &quot;Status: \$(\$r.StatusCode) \$(\$r.StatusDescription) | Time: \${t}ms | State: UP (SLOW)&quot; -ForegroundColor Yellow; exit 0 } } catch { Write-Host &quot;Status: FAILED / DOWN | Error: \$(\$_.Exception.Message)&quot; -ForegroundColor Red; exit 1 }&apos;
+                &quot;&quot;&quot;
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
