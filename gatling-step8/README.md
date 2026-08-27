@@ -60,7 +60,8 @@
 
 | קובץ | מה זה |
 |---|---|
-| `MaxLimitSimulation.java` | סקריפט הבדיקה של Gatling (הגרסה הסופית עם `atOnceUsers`) |
+| `MaxLimitSimulation.java` | סקריפט הבדיקה של Gatling (הגרסה הסופית עם `atOnceUsers`) — משמש לריצות 2 ו-3 |
+| `CleanBurstTest.java` | סקריפט ניסוי הבקרה — 600 בבת אחת, לבד, לשימוש על שרת טרי (ריצה 4) |
 | `step8_maxlimit_cmd_summary.png` | צילום מסך של סיכום הריצה מה-CMD (פריט k בהגשה) |
 | `maxlimit_report.pdf` | ייצוא ה-PDF של דו"ח הגרפים המלא של Gatling (פריט l בהגשה) |
 | `README.md` | הקובץ הזה — הסבר מלא על התהליך והתוצאות |
