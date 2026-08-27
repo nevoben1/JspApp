@@ -57,7 +57,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to My Simple Web App</h1>
+        <h1>Welcome to My Simple Web App - test</h1>
 
         <form action="index.jsp" method="get">
             <input type="text" name="username" placeholder="Enter your name" />
