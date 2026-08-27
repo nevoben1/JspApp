@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple JSP App - test</title>
+    <title>Simple JSP App - test 2</title>
     <style>
         body {
             font-family: Arial, sans-serif;
