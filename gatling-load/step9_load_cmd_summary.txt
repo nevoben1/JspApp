@@ -1,0 +1,20 @@
+Simulation LoadSimulation completed in 182 seconds
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                      13450 (OK=13450  KO=0     )
+> min response time                                      0 (OK=0      KO=-     )
+> max response time                                    401 (OK=401    KO=-     )
+> mean response time                                     2 (OK=2      KO=-     )
+> std deviation                                         16 (OK=16     KO=-     )
+> response time 50th percentile                          1 (OK=1      KO=-     )
+> response time 75th percentile                          1 (OK=1      KO=-     )
+> response time 95th percentile                          3 (OK=3      KO=-     )
+> response time 99th percentile                         19 (OK=19     KO=-     )
+> mean requests/sec                                 73.901 (OK=73.901 KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                         13450 (100%)
+> 800 ms <= t < 1200 ms                                  0 (  0%)
+> t >= 1200 ms                                           0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
