@@ -8,7 +8,7 @@ pipeline {
     options {
         disableConcurrentBuilds()
         timestamps()
-        timeout(time: 15, unit: 'MINUTES')
+        timeout(time: 25, unit: 'MINUTES')
     }
 
     triggers {
@@ -37,14 +37,14 @@ pipeline {
 
         stage('Start load test job') {
             steps {
-                build job: 'Gatling_Load_Test', wait: false, propagate: false
+                build job: 'Gatling_Load_Test', wait: true
             }
         }
     }
 
     post {
         success {
-            echo 'Site deployed. Gatling_Load_Test was started. Stress starts when that job finishes.'
+            echo 'Deploy, load, and stress finished.'
         }
         failure {
             echo 'Deploy failed. Load and stress were not started.'

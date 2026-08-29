@@ -44,7 +44,7 @@ pipeline {
                       exit /b 1
                     )
                     if not exist "%WORKSPACE%\\gatling-load\\LoadSimulation.java" (
-                      echo LoadSimulation.java missing. Merge branch noam-gatling-9-10 first.
+                      echo LoadSimulation.java missing. Use branch master after merge.
                       exit /b 1
                     )
                     if not exist "%RESULTS_DIR%" mkdir "%RESULTS_DIR%"
@@ -61,7 +61,7 @@ pipeline {
 
         stage('Start stress test job') {
             steps {
-                build job: 'Gatling_Stress_Test', wait: false, propagate: false
+                build job: 'Gatling_Stress_Test', wait: true
             }
         }
     }
@@ -71,7 +71,7 @@ pipeline {
             archiveArtifacts artifacts: 'gatling-results/load/**', allowEmptyArchive: true
         }
         success {
-            echo 'Load finished. Gatling_Stress_Test was started.'
+            echo 'Load finished. Stress job finished.'
         }
         failure {
             echo 'Load failed. Stress was not started.'
