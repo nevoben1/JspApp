@@ -6,14 +6,7 @@ import io.gatling.javaapi.http.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
-/**
- * Step 9 — 3-minute load test.
- *
- * Stays below Eldad's measured ceiling (~350-450 concurrent).
- * 150 closed-model users + 1s think time keeps concurrency real without
- * flooding Tomcat the way a no-pause closed model would (a 2ms JSP would
- * otherwise generate tens of thousands of requests per second).
- */
+/** 3-minute load test: 150 concurrent users (below the ~350-450 max). */
 public class LoadSimulation extends Simulation {
 
   private static final String BASE_URL =

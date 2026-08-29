@@ -1,6 +1,3 @@
-// Job name in Jenkins must be exactly: Gatling_Load_Test
-// Started by the deploy job. When this job finishes, it starts Gatling_Stress_Test.
-
 pipeline {
     agent any
 

@@ -1,6 +1,3 @@
-// Job: deploy (Nevo). On Git change: copy the site to Tomcat, then start Gatling_Load_Test.
-// Job names must exist exactly: Gatling_Load_Test, Gatling_Stress_Test.
-
 pipeline {
     agent any
 
