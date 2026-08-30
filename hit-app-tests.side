@@ -1,0 +1,310 @@
+{
+  "id": "6b1c4f0e-1a2b-4c3d-9e8f-hitdevops2026",
+  "version": "2.0",
+  "name": "HIT DevOps App Tests",
+  "url": "http://localhost:8080",
+  "tests": [
+    {
+      "id": "t1-smoke",
+      "name": "01 Smoke - page loads with all required elements",
+      "commands": [
+        {
+          "id": "a1",
+          "command": "open",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "a2",
+          "comment": "assert: right page, otherwise stop",
+          "command": "assertTitle",
+          "target": "Simple JSP App",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "a3",
+          "comment": "assert: input box exists",
+          "command": "assertElementPresent",
+          "target": "name=username",
+          "targets": [
+            [
+              "name=username",
+              "name"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "a4",
+          "comment": "assert: submit button exists",
+          "command": "assertElementPresent",
+          "target": "css=input[type='submit']",
+          "targets": [
+            [
+              "css=input[type='submit']",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "a5",
+          "comment": "verify: no greeting before any input (clean state)",
+          "command": "verifyElementNotPresent",
+          "target": "css=.greeting",
+          "targets": [
+            [
+              "css=.greeting",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t2-link",
+      "name": "02 Link - GitHub link points to the correct target",
+      "commands": [
+        {
+          "id": "b1",
+          "command": "open",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "b2",
+          "comment": "assert: link exists",
+          "command": "assertElementPresent",
+          "target": "css=a[href='https://github.com/']",
+          "targets": [
+            [
+              "css=a[href='https://github.com/']",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "b3",
+          "comment": "verify: link text",
+          "command": "verifyText",
+          "target": "css=a[href='https://github.com/']",
+          "targets": [
+            [
+              "css=a[href='https://github.com/']",
+              "css:finder"
+            ]
+          ],
+          "value": "Visit my GitHub"
+        },
+        {
+          "id": "b4",
+          "comment": "store href attribute",
+          "command": "storeAttribute",
+          "target": "css=a[href='https://github.com/']@href",
+          "targets": [
+            [
+              "css=a[href='https://github.com/']",
+              "css:finder"
+            ]
+          ],
+          "value": "linkHref"
+        },
+        {
+          "id": "b5",
+          "comment": "verify: href is the expected URL",
+          "command": "verify",
+          "target": "linkHref",
+          "targets": [],
+          "value": "https://github.com/"
+        },
+        {
+          "id": "b6",
+          "comment": "store target attribute",
+          "command": "storeAttribute",
+          "target": "css=a[href='https://github.com/']@target",
+          "targets": [
+            [
+              "css=a[href='https://github.com/']",
+              "css:finder"
+            ]
+          ],
+          "value": "linkTarget"
+        },
+        {
+          "id": "b7",
+          "comment": "verify: opens in a new tab",
+          "command": "verify",
+          "target": "linkTarget",
+          "targets": [],
+          "value": "_blank"
+        }
+      ]
+    },
+    {
+      "id": "t3-negative-empty",
+      "name": "03 Negative - empty input shows no greeting",
+      "commands": [
+        {
+          "id": "c1",
+          "command": "open",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c2",
+          "command": "click",
+          "target": "css=input[type='submit']",
+          "targets": [
+            [
+              "css=input[type='submit']",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "c3",
+          "comment": "verify: server ignores empty value",
+          "command": "verifyElementNotPresent",
+          "target": "css=.greeting",
+          "targets": [
+            [
+              "css=.greeting",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t4-negative-whitespace",
+      "name": "04 Negative - whitespace-only input is rejected (trim)",
+      "commands": [
+        {
+          "id": "d1",
+          "command": "open",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "d2",
+          "command": "type",
+          "target": "name=username",
+          "targets": [
+            [
+              "name=username",
+              "name"
+            ]
+          ],
+          "value": "     "
+        },
+        {
+          "id": "d3",
+          "command": "click",
+          "target": "css=input[type='submit']",
+          "targets": [
+            [
+              "css=input[type='submit']",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "d4",
+          "comment": "verify: trim() logic works - spaces are not a name",
+          "command": "verifyElementNotPresent",
+          "target": "css=.greeting",
+          "targets": [
+            [
+              "css=.greeting",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t5-direct-url",
+      "name": "05 Positive - greeting via direct GET parameter",
+      "commands": [
+        {
+          "id": "e1",
+          "comment": "open the URL the form would produce, without typing/clicking",
+          "command": "open",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp?username=Itamar",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "e2",
+          "comment": "assert: greeting rendered",
+          "command": "assertElementPresent",
+          "target": "css=.greeting",
+          "targets": [
+            [
+              "css=.greeting",
+              "css:finder"
+            ]
+          ],
+          "value": ""
+        },
+        {
+          "id": "e3",
+          "comment": "verify: exact greeting text",
+          "command": "verifyText",
+          "target": "css=.greeting",
+          "targets": [
+            [
+              "css=.greeting",
+              "css:finder"
+            ]
+          ],
+          "value": "Hello, Itamar! Welcome to the app."
+        },
+        {
+          "id": "e4",
+          "comment": "verify: name is rendered in bold",
+          "command": "verifyText",
+          "target": "css=.greeting b",
+          "targets": [
+            [
+              "css=.greeting b",
+              "css:finder"
+            ]
+          ],
+          "value": "Itamar"
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "s1",
+      "name": "HIT Suite",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "t1-smoke",
+        "t2-link",
+        "t3-negative-empty",
+        "t4-negative-whitespace",
+        "t5-direct-url"
+      ]
+    }
+  ],
+  "urls": [
+    "http://localhost:8080"
+  ],
+  "plugins": []
+}
