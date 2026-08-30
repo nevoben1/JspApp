@@ -19,7 +19,7 @@
           "id": "a2",
           "comment": "assert: right page, otherwise stop",
           "command": "assertTitle",
-          "target": "Simple JSP App",
+          "target": "Simple JSP App-2",
           "targets": [],
           "value": ""
         },
