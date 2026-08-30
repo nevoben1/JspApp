@@ -11,7 +11,7 @@
         {
           "id": "a1",
           "command": "open",
-          "target": "/itamar-nevo-eldad-amit-noam/index.jsp",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
           "targets": [],
           "value": ""
         },
@@ -71,7 +71,7 @@
         {
           "id": "b1",
           "command": "open",
-          "target": "/itamar-nevo-eldad-amit-noam/index.jsp",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
           "targets": [],
           "value": ""
         },
@@ -152,7 +152,7 @@
         {
           "id": "c1",
           "command": "open",
-          "target": "/itamar-nevo-eldad-amit-noam/index.jsp",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
           "targets": [],
           "value": ""
         },
@@ -190,7 +190,7 @@
         {
           "id": "d1",
           "command": "open",
-          "target": "/itamar-nevo-eldad-amit-noam/index.jsp",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp",
           "targets": [],
           "value": ""
         },
@@ -241,7 +241,7 @@
           "id": "e1",
           "comment": "open the URL the form would produce, without typing/clicking",
           "command": "open",
-          "target": "/itamar-nevo-eldad-amit-noam/index.jsp?username=Itamar",
+          "target": "/eldad-noam-nevo-itamar-amit/index.jsp?username=Itamar",
           "targets": [],
           "value": ""
         },
