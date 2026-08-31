@@ -11,4 +11,17 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>UserLimitFilter</filter-name>
+        <filter-class>UserLimitFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserLimitFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>UserCounterListener</listener-class>
+    </listener>
+
 </web-app>
