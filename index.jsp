@@ -1,4 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.net.HttpURLConnection" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.InputStreamReader" %>
+<%
+    // --- Do a bit of real work per request so the box can be load-tested. ---
+    // Makes N server-side HTTP GETs to a public API. Tune with ?calls=N (default 3, max 20).
+    int calls = 3;
+    try { calls = Integer.parseInt(request.getParameter("calls").trim()); } catch (Exception e) {}
+    calls = Math.max(1, Math.min(calls, 20));
+
+    String api = "https://jsonplaceholder.typicode.com/todos/1";
+    long startedAt = System.currentTimeMillis();
+    int ok = 0, failed = 0;
+    long bytes = 0;
+
+    for (int i = 0; i < calls; i++) {
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) new URL(api).openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("GET");
+            int code = conn.getResponseCode();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) bytes += line.length();
+            in.close();
+            if (code >= 200 && code < 300) ok++; else failed++;
+        } catch (Exception ex) {
+            failed++;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    long elapsedMs = System.currentTimeMillis() - startedAt;
+%>
 <!DOCTYPE html>
 <html>
 <head>
