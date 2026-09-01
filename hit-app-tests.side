@@ -2,7 +2,7 @@
   "id": "6b1c4f0e-1a2b-4c3d-9e8f-hitdevops2026",
   "version": "2.0",
   "name": "HIT DevOps App Tests",
-  "url": "http://localhost:8080",
+  "url": "http://localhost:8081",
   "tests": [
     {
       "id": "t1-smoke",
@@ -19,7 +19,7 @@
           "id": "a2",
           "comment": "assert: right page, otherwise stop",
           "command": "assertTitle",
-          "target": "Simple JSP App-2",
+          "target": "Simple JSP App",
           "targets": [],
           "value": ""
         },
