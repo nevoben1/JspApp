@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple JSP App-2</title>
+    <title>Simple JSP App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to My Simple Web App2</h1>
+        <h1>Welcome to My Simple Web App</h1>
 
         <form action="index.jsp" method="get">
             <input type="text" name="username" placeholder="Enter your name" />
