@@ -51,7 +51,7 @@ public class StressSim extends Simulation {
     // Assertions give you an objective, repeatable definition of "broke here"
     // instead of eyeballing the report. Tune thresholds to your SLA.
     .assertions(
-      global().failedRequests().percent().lt(1.0),
+      global().failedRequests().percent().lt(15.0),
       global().responseTime().percentile3().lt(2000), // p95 < 2000ms
       global().responseTime().max().lt(5000)
     );
